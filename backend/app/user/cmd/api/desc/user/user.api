@@ -1,0 +1,36 @@
+syntax = "v1"
+
+info(
+    title: "用户服务"
+    desc: "用户服务"
+    author: "dsm"
+    version: "1.0"
+)
+
+
+type (
+    UserLoginReq {
+        Name    string  `json:"name""`
+        Password    string  `json:"password"`
+    }
+    UserLoginResp{
+        AccessToken  string `json:"accessToken"`
+        AccessExpire int64  `json:"accessExpire"`
+        RefreshAfter int64  `json:"refreshAfter"`
+    }
+)
+type (
+    UserInfoReq{
+    Id string `json:"id"`
+    }
+    UserInfoResp{
+    Name string `json:"name"`
+    Role string `json:"role"`
+    }
+)
+type LoadInfoReq{
+
+}
+type LoadInfoResp{
+
+}

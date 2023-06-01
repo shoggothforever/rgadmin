@@ -1,0 +1,36 @@
+syntax = "v1"
+
+info(
+	title: "用户服务"
+	desc: "用户服务"
+	author: "dsm"
+	version: "1.0"
+)
+
+import "user/user.api"
+
+@server(
+	jwt :JwtAuth
+	group:user
+	prefix :user/v1
+)
+service user {
+	@doc "用户登录"
+	@handler userLogin
+	post /login (UserLoginReq) returns (UserLoginResp)
+	
+	@doc "用户信息获取"
+	@handler  userInfo
+	get /userinfo (UserInfoReq) returns (UserInfoResp)
+}
+
+@server(
+	jwt :JwtAuth
+	group:admin
+	prefix :admin/v1
+)
+service admin{
+	@doc "传入教职工身份信息excel表"
+	@handler loadStuffInfo
+	post /loadinfo () returns ()
+}
