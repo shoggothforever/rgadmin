@@ -29,8 +29,9 @@ type (
     }
 )
 type LoadInfoReq{
-
+    Jwt string `json:"jwt"`
+    UserInfoTable []byte `json:"userInfoTable"`
 }
 type LoadInfoResp{
-
+    OutputTable []byte `json:"outputTable"`
 }

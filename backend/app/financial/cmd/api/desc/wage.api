@@ -1,0 +1,19 @@
+syntax = "v1"
+
+info(
+	title: "financial"
+	desc: "financial"
+	author: "dsm"
+	version: "1.0"
+)
+import "wage/wage.api"
+@server(
+	jwt: Auth
+	group: wage
+	prefix:wage
+)
+service wage {
+	@doc "计算薪水"
+	@handler CalWage
+	post /cal (CalReq) returns (CalResp)
+}

@@ -29,7 +29,7 @@ service user {
 	group:admin
 	prefix :admin/v1
 )
-service admin{
+service user{
 	@doc "传入教职工身份信息excel表"
 	@handler loadStuffInfo
 	post /loadinfo () returns ()

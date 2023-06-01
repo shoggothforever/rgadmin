@@ -1,0 +1,33 @@
+syntax="proto3";
+option go_package="./pb";
+package pb;
+
+message UserLoginReq{
+  string Name=1;
+  string Password=2;
+}
+message UserLoginResp{
+string jwt=1;
+int64 AccessExpire=2;
+int64 RefreshAfter=3;
+}
+message UserInfoReq{
+  string Jwt =1;
+  string Id=2;
+}
+message UserInfoResp{
+  string Name=1;
+  string Role=2;
+}
+message LoadInfoReq{
+string Jwt=1;
+bytes UserInfoTable=2;
+}
+message LoadInfoResp{
+bytes OutputTable=1;
+}
+service user{
+  rpc Login(UserLoginReq)returns(UserLoginResp);
+  rpc GetInfo(UserInfoReq)returns(UserInfoResp);
+  rpc loadInfo(LoadInfoReq)returns(LoadInfoResp);
+}
