@@ -2,27 +2,32 @@
 package types
 
 type UserLoginReq struct {
-	Name     string `json:"name""`
-	Password string `json:"password"`
+	StuffCode string `json:"stuffCode"`
+	Password  string `json:"password"`
 }
 
 type UserLoginResp struct {
-	AccessToken  string `json:"accessToken"`
-	AccessExpire int64  `json:"accessExpire"`
-	RefreshAfter int64  `json:"refreshAfter"`
+	Role        string `json:"role"`
+	AccessToken string `json:"accessToken"`
+}
+
+type UserLogoutReq struct {
+}
+
+type UserLogoutResp struct {
 }
 
 type UserInfoReq struct {
-	Id string `json:"id"`
 }
 
 type UserInfoResp struct {
-	Name string `json:"name"`
-	Role string `json:"role"`
+	Id        string `json:"id"`
+	StuffCode string `json:"stuffCode"`
+	Name      string `json:"name"`
+	Role      string `json:"role"`
 }
 
 type LoadInfoReq struct {
-	Jwt           string `json:"jwt"`
 	UserInfoTable []byte `json:"userInfoTable"`
 }
 

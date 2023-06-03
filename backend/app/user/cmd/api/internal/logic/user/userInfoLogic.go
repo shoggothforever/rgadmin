@@ -25,6 +25,11 @@ func NewUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserInfo
 
 func (l *UserInfoLogic) UserInfo(req *types.UserInfoReq) (resp *types.UserInfoResp, err error) {
 	// todo: add your logic here and delete this line
-
-	return
+	id := l.svcCtx.JwtModel.Id
+	user, err := l.svcCtx.UserModel.FindOne(l.ctx, id)
+	if err != nil {
+		return nil, err
+	}
+	resp = &types.UserInfoResp{Name: user.Name, Role: user.Role}
+	return resp, nil
 }

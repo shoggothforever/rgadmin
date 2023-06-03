@@ -8,7 +8,7 @@ info(
 )
 import "wage/wage.api"
 @server(
-	jwt: Auth
+	jwt: JwtAuth
 	group: wage
 	prefix:wage
 )

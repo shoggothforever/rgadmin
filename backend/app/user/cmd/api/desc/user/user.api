@@ -10,28 +10,35 @@ info(
 
 type (
     UserLoginReq {
-        Name    string  `json:"name""`
+        StuffCode    string `json:"stuffCode"`
         Password    string  `json:"password"`
     }
     UserLoginResp{
+        Role string  `json:"role"`
         AccessToken  string `json:"accessToken"`
-        AccessExpire int64  `json:"accessExpire"`
-        RefreshAfter int64  `json:"refreshAfter"`
+    }
+    UserLogoutReq{
+
+    }
+    UserLogoutResp{
+
     }
 )
 type (
     UserInfoReq{
-    Id string `json:"id"`
     }
     UserInfoResp{
+    Id      string `json:"id"`
+    StuffCode string  `json:"stuffCode"`
     Name string `json:"name"`
     Role string `json:"role"`
     }
 )
-type LoadInfoReq{
-    Jwt string `json:"jwt"`
-    UserInfoTable []byte `json:"userInfoTable"`
-}
-type LoadInfoResp{
-    OutputTable []byte `json:"outputTable"`
-}
+type (
+    LoadInfoReq{
+        UserInfoTable []byte `json:"userInfoTable"`
+    }
+    LoadInfoResp{
+        OutputTable []byte `json:"outputTable"`
+    }
+)

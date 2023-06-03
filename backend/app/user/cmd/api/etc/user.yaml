@@ -1,3 +1,13 @@
 Name: user
 Host: 0.0.0.0
-Port: 8888
+Port: 10001
+Mode: dev
+JwtAuth:
+  AccessSecret: 2333bytedance
+  AccessExpire: 86400
+Cache:
+  - Host: 127.0.0.1:6379
+Mongo:
+  Uri: mongodb://localhost:27017
+  Database: rdadmin
+  Collection: users
