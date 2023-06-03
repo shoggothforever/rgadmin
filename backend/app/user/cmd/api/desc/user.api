@@ -8,16 +8,26 @@ info(
 )
 
 import "user/user.api"
+@server(
+	group:user
+	prefix :user
+)
+service user {
+	@doc "用户登录"
+	@handler login
+	post /login (UserLoginReq) returns (UserLoginResp)
+	
+}
 
 @server(
 	jwt :JwtAuth
 	group:user
-	prefix :user/v1
+	prefix :user
 )
 service user {
-	@doc "用户登录"
-	@handler userLogin
-	post /login (UserLoginReq) returns (UserLoginResp)
+	@doc "退出登录"
+	@handler logout
+	post /logout (UserLogoutReq) returns (UserLogoutResp)
 	
 	@doc "用户信息获取"
 	@handler  userInfo
@@ -27,10 +37,10 @@ service user {
 @server(
 	jwt :JwtAuth
 	group:admin
-	prefix :admin/v1
+	prefix :admin
 )
-service admin{
+service user{
 	@doc "传入教职工身份信息excel表"
-	@handler loadStuffInfo
-	post /loadinfo () returns ()
+	@handler loadInfo
+	post /loadinfo (LoadInfoReq) returns (LoadInfoResp)
 }

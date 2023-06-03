@@ -6,31 +6,45 @@ info(
     author: "dsm"
     version: "1.0"
 )
-
+    type Response {
+    Code uint32    `json:"code"`
+    Msg string `json:"msg"`
+    }
 
 type (
     UserLoginReq {
-        Name    string  `json:"name""`
+        StuffCode    string `json:"stuffCode"`
         Password    string  `json:"password"`
     }
     UserLoginResp{
+        Response
+        Role string  `json:"role"`
         AccessToken  string `json:"accessToken"`
-        AccessExpire int64  `json:"accessExpire"`
-        RefreshAfter int64  `json:"refreshAfter"`
+    }
+    UserLogoutReq{
+
+    }
+    UserLogoutResp{
+        Response
     }
 )
 type (
     UserInfoReq{
-    Id string `json:"id"`
     }
     UserInfoResp{
+        Response
+    Id        string   `json:"id"`
+    StuffCode string  `json:"stuffCode"`
     Name string `json:"name"`
     Role string `json:"role"`
     }
 )
-type LoadInfoReq{
-
-}
-type LoadInfoResp{
-
-}
+type (
+    LoadInfoReq{
+        UserInfoTable []byte `json:"userInfoTable"`
+    }
+    LoadInfoResp{
+        Response
+        OutputTable []byte `json:"outputTable"`
+    }
+)

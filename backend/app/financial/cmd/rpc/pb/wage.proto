@@ -1,0 +1,17 @@
+syntax="proto3";
+option go_package="./pb";
+package pb;
+message CalReq{
+  string id=1;
+  string jwt =2;
+  float workHour=3;
+}
+message CalResp{
+  float wageBeforeTax=1;
+  float wageAfterTax=2;
+  float actualWage=3;
+}
+
+service wage{
+  rpc calWage(CalReq)returns(CalResp);
+}

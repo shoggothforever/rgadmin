@@ -1,0 +1,25 @@
+syntax = "v1"
+
+info(
+    title: "wage"
+    desc: "wage"
+    author: "dsm"
+    version: "1.0"
+)
+
+type Response struct{
+    Code uint32
+    Msg string
+}
+type CalReq {
+    Id string    `json:"id"`
+    Jwt string `json:"jwt"`
+    WorkHour float32 `json:"workHour"`
+}
+
+type CalResp {
+    Response
+    WageBeforeTax float32 `json:"wageBeforeTax"`
+    WageAfterTax float32 `json:"wageAfterTax"`
+    ActualWage float32 `json:"actualWage"`
+}
