@@ -6,7 +6,10 @@ info(
     author: "dsm"
     version: "1.0"
 )
-
+    type Response {
+    Code uint32    `json:"code"`
+    Msg string `json:"msg"`
+    }
 
 type (
     UserLoginReq {
@@ -14,6 +17,7 @@ type (
         Password    string  `json:"password"`
     }
     UserLoginResp{
+        Response
         Role string  `json:"role"`
         AccessToken  string `json:"accessToken"`
     }
@@ -21,13 +25,14 @@ type (
 
     }
     UserLogoutResp{
-
+        Response
     }
 )
 type (
     UserInfoReq{
     }
     UserInfoResp{
+        Response
     Id      string `json:"id"`
     StuffCode string  `json:"stuffCode"`
     Name string `json:"name"`
@@ -39,6 +44,7 @@ type (
         UserInfoTable []byte `json:"userInfoTable"`
     }
     LoadInfoResp{
+        Response
         OutputTable []byte `json:"outputTable"`
     }
 )

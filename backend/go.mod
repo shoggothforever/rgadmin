@@ -5,7 +5,9 @@ go 1.20
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/pkg/errors v0.9.1
+	github.com/sirupsen/logrus v1.9.2
 	github.com/zeromicro/go-zero v1.5.2
+	github.com/zeromicro/x v0.0.0-20230424055333-01c7fb9548d4
 	go.mongodb.org/mongo-driver v1.11.4
 	google.golang.org/grpc v1.55.0
 	google.golang.org/protobuf v1.30.0

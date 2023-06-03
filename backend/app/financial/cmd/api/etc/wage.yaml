@@ -6,3 +6,6 @@ Mongo:
   Uri: mongodb://localhost:27017
   Database: rdadmin
   Collection: users
+JwtAuth:
+  AccessSecret: 2333bytedance
+  AccessExpire: 86400

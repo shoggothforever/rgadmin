@@ -1,7 +1,11 @@
 package user
 
 import (
+	model "Table/app/user/cmd/api/cache"
 	"context"
+	"errors"
+	"go.mongodb.org/mongo-driver/bson"
+	"time"
 
 	"Table/app/user/cmd/api/internal/svc"
 	"Table/app/user/cmd/api/internal/types"
@@ -25,6 +29,20 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 
 func (l *LoginLogic) Login(req *types.UserLoginReq) (resp *types.UserLoginResp, err error) {
 	// todo: add your logic here and delete this line
-
-	return
+	fileter := bson.D{{"stuffcode", req.StuffCode}}
+	var user model.User
+	err = l.svcCtx.Mongo.Collection(l.svcCtx.Config.Mongo.Collection).FindOne(l.ctx, fileter).Decode(&user)
+	if err != nil {
+		return &types.UserLoginResp{Response: types.NewResponse(401, err.Error())}, err
+	}
+	if req.Password != user.Password {
+		return &types.UserLoginResp{Response: types.NewResponse(401, "登录失败，请检查用户名或密码是否正确")}, errors.New("登录失败，请检查用户名或密码是否正确")
+	}
+	jwt, err := l.svcCtx.JwtModel.GeneraterJwt(user.StuffCode, user.Name, user.Password, time.Duration(l.svcCtx.Config.JwtAuth.AccessExpire))
+	resp = &types.UserLoginResp{
+		Response:    types.Response{Code: 200, Msg: "登录成功"},
+		Role:        user.Role,
+		AccessToken: jwt,
+	}
+	return resp, nil
 }
