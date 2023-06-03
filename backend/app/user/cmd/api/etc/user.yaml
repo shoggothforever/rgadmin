@@ -4,7 +4,7 @@ Port: 10001
 Mode: dev
 JwtAuth:
   AccessSecret: 2333bytedance
-  AccessExpire: 86400
+  AccessExpire: 21600
 Cache:
   - Host: 127.0.0.1:6379
 Mongo:

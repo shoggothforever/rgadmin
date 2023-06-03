@@ -2,13 +2,12 @@ package user
 
 import (
 	model "Table/app/user/cmd/api/cache"
+	"Table/app/user/cmd/api/internal/svc"
+	"Table/app/user/cmd/api/internal/types"
 	"context"
 	"errors"
 	"go.mongodb.org/mongo-driver/bson"
 	"time"
-
-	"Table/app/user/cmd/api/internal/svc"
-	"Table/app/user/cmd/api/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -38,7 +37,8 @@ func (l *LoginLogic) Login(req *types.UserLoginReq) (resp *types.UserLoginResp, 
 	if req.Password != user.Password {
 		return &types.UserLoginResp{Response: types.NewResponse(401, "登录失败，请检查用户名或密码是否正确")}, errors.New("登录失败，请检查用户名或密码是否正确")
 	}
-	jwt, err := l.svcCtx.JwtModel.GeneraterJwt(user.StuffCode, user.Name, user.Password, time.Duration(l.svcCtx.Config.JwtAuth.AccessExpire))
+	//jwt, err := l.svcCtx.JwtModel.GeneraterJwt(user.StuffCode, user.Name, user.Password, time.Duration(l.svcCtx.Config.JwtAuth.AccessExpire))
+	jwt, err := types.GetJwtToken(l.svcCtx.Config.JwtAuth.AccessSecret, time.Now().Unix(), l.svcCtx.Config.JwtAuth.AccessExpire, req.StuffCode)
 	resp = &types.UserLoginResp{
 		Response:    types.Response{Code: 200, Msg: "登录成功"},
 		Role:        user.Role,

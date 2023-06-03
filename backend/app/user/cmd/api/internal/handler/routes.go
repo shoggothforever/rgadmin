@@ -19,17 +19,17 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/login",
 				Handler: user.LoginHandler(serverCtx),
 			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/logout",
-				Handler: user.LogoutHandler(serverCtx),
-			},
 		},
 		rest.WithPrefix("/user"),
 	)
 
 	server.AddRoutes(
 		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/logout",
+				Handler: user.LogoutHandler(serverCtx),
+			},
 			{
 				Method:  http.MethodGet,
 				Path:    "/userinfo",

@@ -17,9 +17,6 @@ service user {
 	@handler login
 	post /login (UserLoginReq) returns (UserLoginResp)
 	
-	@doc "退出登录"
-	@handler logout
-	post /logout (UserLogoutReq) returns (UserLogoutResp)
 }
 
 @server(
@@ -28,6 +25,10 @@ service user {
 	prefix :user
 )
 service user {
+	@doc "退出登录"
+	@handler logout
+	post /logout (UserLogoutReq) returns (UserLogoutResp)
+	
 	@doc "用户信息获取"
 	@handler  userInfo
 	get /userinfo (UserInfoReq) returns (UserInfoResp)

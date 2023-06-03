@@ -33,7 +33,7 @@ type (
     }
     UserInfoResp{
         Response
-    Id      string `json:"id"`
+    Id        string   `json:"id"`
     StuffCode string  `json:"stuffCode"`
     Name string `json:"name"`
     Role string `json:"role"`

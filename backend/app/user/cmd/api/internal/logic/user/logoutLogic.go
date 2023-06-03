@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"github.com/golang-jwt/jwt/v4"
 
 	"Table/app/user/cmd/api/internal/svc"
 	"Table/app/user/cmd/api/internal/types"
@@ -25,6 +26,10 @@ func NewLogoutLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LogoutLogi
 
 func (l *LogoutLogic) Logout(req *types.UserLogoutReq) (resp *types.UserLogoutResp, err error) {
 	// todo: add your logic here and delete this line
-
-	return
+	token := jwt.New(jwt.SigningMethodHS256)
+	token.Claims = make(jwt.MapClaims)
+	resp = &types.UserLogoutResp{
+		Response: types.Response{Code: 200, Msg: "退出成功"},
+	}
+	return resp, nil
 }

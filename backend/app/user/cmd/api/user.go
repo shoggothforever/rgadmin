@@ -1,8 +1,11 @@
 package main
 
 import (
+	"Table/app/user/cmd/api/internal/types"
 	"flag"
 	"fmt"
+	"github.com/zeromicro/go-zero/rest/httpx"
+	"net/http"
 
 	"Table/app/user/cmd/api/internal/config"
 	"Table/app/user/cmd/api/internal/handler"
@@ -20,7 +23,10 @@ func main() {
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
 
-	server := rest.MustNewServer(c.RestConf)
+	server := rest.MustNewServer(c.RestConf, rest.WithUnauthorizedCallback(func(w http.ResponseWriter, r *http.Request, err error) {
+		httpx.OkJsonCtx(r.Context(), w, types.NewErrCodeMsg(401, err.Error()))
+		return
+	}), rest.WithCors("http://localhost:3000"))
 	defer server.Stop()
 
 	ctx := svc.NewServiceContext(c)
