@@ -11,7 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-var prefixWageCacheKey = "cache:wage:"
+var prefixWageCacheKey = "model:wage:"
 
 type wageModel interface {
 	Insert(ctx context.Context, data *Wage) error

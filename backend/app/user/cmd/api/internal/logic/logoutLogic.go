@@ -1,4 +1,4 @@
-package user
+package logic
 
 import (
 	"context"
@@ -24,8 +24,7 @@ func NewLogoutLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LogoutLogi
 	}
 }
 
-func (l *LogoutLogic) Logout(req *types.UserLogoutReq) (resp *types.UserLogoutResp, err error) {
-	// todo: add your logic here and delete this line
+func (l *LogoutLogic) Logout() (resp *types.UserLogoutResp, err error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 	token.Claims = make(jwt.MapClaims)
 	resp = &types.UserLogoutResp{

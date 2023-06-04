@@ -43,7 +43,7 @@ type (
 )
 type (
     CalwageReq{
-        WorkTime float32    `json:"workTime"`
+        WorkTime float64    `json:"workTime"`
     }
     CalwageResp{
         Response
@@ -52,29 +52,55 @@ type (
         Name string          `json:"name"`
         Year int          `json:"year"`
         Month  int        `json:"month"`
-        WageBeforeTax float32   `json:"wageBeforeTax"`
-        Tax           float32   `json:"tax"`
-        ActualWage    float32   `json:"actualWage"`
+        WageBeforeTax float64   `json:"wageBeforeTax"`
+        Tax           float64   `json:"tax"`
+        ActualWage    float64   `json:"actualWage"`
     }
 )
 type (
-QuerywageReq{
-    Year int `json:"year"`
-    Month int `json:"month"`
-}
-QuerywageResp{
+    LookupResp{
     Response
-    WageBeforeTax float32   `json:"wageBeforeTax"`
-    Tax           float32   `json:"tax"`
-    ActualWage    float32   `json:"actualWage"`
-}
+    CurrentCount int `json:"currentCount"`
+    AllCount int `json:"allCount"`
+    }
+)
+
+type (
+    QuerywageReq{
+        Year int `json:"year"`
+        Month int `json:"month"`
+    }
+    QuerywageResp{
+        Response
+        WageBeforeTax float64   `json:"wageBeforeTax"`
+        Tax           float64   `json:"tax"`
+        ActualWage    float64   `json:"actualWage"`
+    }
 )
 type (
-    LoadInfoReq{
-        UserInfoTable []byte `json:"userInfoTable"`
+    WageExcelReq{
+        Year int `json:"year"`
+        Month int `json:"month"`
     }
-    LoadInfoResp{
+    WageExcelResp{
         Response
-        OutputTable []byte `json:"outputTable"`
+        FileName string  `json:"fileName"`
+        FileType string  `json:"fileType"`
+        DownloadUrl string  `json:"downloadUrl"`
+    }
+)
+type (
+    UploadInfoReq{
+        Hash string `json:"hash,optional"`
+        Name string `json:"name,optional"`
+        Ext  string `json:"ext,optional"`
+        Size int64  `json:"size,optional"`
+        Path string `json:"path,optional"`
+    }
+    UploadInfoResp{
+        Response
+        Identity string `json:"identity"`
+        Ext      string `json:"ext"`
+        Name     string `json:"name"`
     }
 )

@@ -1,13 +1,14 @@
-package user
+package logic
 
 import (
-	"Table/app/user/cmd/api/internal/svc"
-	"Table/app/user/cmd/api/internal/types"
 	"Table/app/user/cmd/api/model"
 	"context"
 	"errors"
 	"go.mongodb.org/mongo-driver/bson"
 	"time"
+
+	"Table/app/user/cmd/api/internal/svc"
+	"Table/app/user/cmd/api/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -27,7 +28,6 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 }
 
 func (l *LoginLogic) Login(req *types.UserLoginReq) (resp *types.UserLoginResp, err error) {
-	// todo: add your logic here and delete this line
 	fileter := bson.D{{"staffcode", req.StaffCode}}
 	var user model.User
 	err = l.svcCtx.Mongo.Collection("employee").FindOne(l.ctx, fileter).Decode(&user)

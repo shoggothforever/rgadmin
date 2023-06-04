@@ -46,7 +46,7 @@ type UserInfoResp struct {
 }
 
 type CalwageReq struct {
-	WorkTime float32 `json:"workTime"`
+	WorkTime float64 `json:"workTime"`
 }
 
 type CalwageResp struct {
@@ -56,9 +56,15 @@ type CalwageResp struct {
 	Name          string  `json:"name"`
 	Year          int     `json:"year"`
 	Month         int     `json:"month"`
-	WageBeforeTax float32 `json:"wageBeforeTax"`
-	Tax           float32 `json:"tax"`
-	ActualWage    float32 `json:"actualWage"`
+	WageBeforeTax float64 `json:"wageBeforeTax"`
+	Tax           float64 `json:"tax"`
+	ActualWage    float64 `json:"actualWage"`
+}
+
+type LookupResp struct {
+	Response
+	CurrentCount int `json:"currentCount"`
+	AllCount     int `json:"allCount"`
 }
 
 type QuerywageReq struct {
@@ -68,18 +74,36 @@ type QuerywageReq struct {
 
 type QuerywageResp struct {
 	Response
-	WageBeforeTax float32 `json:"wageBeforeTax"`
-	Tax           float32 `json:"tax"`
-	ActualWage    float32 `json:"actualWage"`
+	WageBeforeTax float64 `json:"wageBeforeTax"`
+	Tax           float64 `json:"tax"`
+	ActualWage    float64 `json:"actualWage"`
 }
 
-type LoadInfoReq struct {
-	UserInfoTable []byte `json:"userInfoTable"`
+type WageExcelReq struct {
+	Year  int `json:"year"`
+	Month int `json:"month"`
 }
 
-type LoadInfoResp struct {
+type WageExcelResp struct {
 	Response
-	OutputTable []byte `json:"outputTable"`
+	FileName    string `json:"fileName"`
+	FileType    string `json:"fileType"`
+	DownloadUrl string `json:"downloadUrl"`
+}
+
+type UploadInfoReq struct {
+	Hash string `json:"hash,optional"`
+	Name string `json:"name,optional"`
+	Ext  string `json:"ext,optional"`
+	Size int64  `json:"size,optional"`
+	Path string `json:"path,optional"`
+}
+
+type UploadInfoResp struct {
+	Response
+	Identity string `json:"identity"`
+	Ext      string `json:"ext"`
+	Name     string `json:"name"`
 }
 
 type CodeError struct {

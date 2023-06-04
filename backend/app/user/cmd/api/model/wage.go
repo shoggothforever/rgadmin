@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-var basewagemap map[string]float32
+var basewagemap map[string]float64
 
 const (
 	ROLE1   string  = "admissions staff"
@@ -20,7 +20,7 @@ const (
 	ROLE10  string  = "security bureau"
 	ROLE11  string  = "teacher"
 	ROLE12  string  = "vice-principal"
-	ElseFee float32 = 1000
+	ElseFee float64 = 1000
 )
 
 type Wage struct {
@@ -31,13 +31,14 @@ type Wage struct {
 	Name          string             `bson:"name" json:"name"`
 	Year          int                `bson:"year" json:"year"`
 	Month         int                `bson:"month" json:"month"`
-	WageBeforeTax float32            `bson:"wagebeforetax" json:"wageBeforeTax"`
-	Tax           float32            `bson:"tax" json:"tax" `
-	ActualWage    float32            `bson:"actualwage" json:"actualWage"`
+	WorkTime      float64            `bson:"worktime" json:"workTime"`
+	WageBeforeTax float64            `bson:"wagebeforetax" json:"wageBeforeTax"`
+	Tax           float64            `bson:"tax" json:"tax" `
+	ActualWage    float64            `bson:"actualwage" json:"actualWage"`
 }
 
 func init() {
-	basewagemap = make(map[string]float32)
+	basewagemap = make(map[string]float64)
 	basewagemap[ROLE1] = 10000
 	basewagemap[ROLE2] = 9000
 	basewagemap[ROLE3] = 6000
@@ -52,11 +53,11 @@ func init() {
 	basewagemap[ROLE12] = 15000
 
 }
-func GetBasewage(role string) float32 {
+func GetBasewage(role string) float64 {
 	return basewagemap[role]
 }
-func CalTax(base float32) float32 {
-	var ans float32
+func CalTax(base float64) float64 {
+	var ans float64
 	switch {
 	case base <= 5000:
 		ans = 0

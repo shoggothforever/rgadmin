@@ -12,8 +12,7 @@ type Response struct{
     Msg string
 }
 type CalReq {
-    Id string    `json:"id"`
-    Jwt string `json:"jwt"`
+    StaffCode string    `json:"staffCode"`
     WorkHour float32 `json:"workHour"`
 }
 

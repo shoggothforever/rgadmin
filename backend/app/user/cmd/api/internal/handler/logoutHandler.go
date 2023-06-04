@@ -1,15 +1,15 @@
-package user
+package handler
 
 import (
 	"net/http"
 
-	"Table/app/user/cmd/api/internal/logic/user"
+	"Table/app/user/cmd/api/internal/logic"
 	"Table/app/user/cmd/api/internal/svc"
 	"Table/app/user/cmd/api/internal/types"
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-func LogoutHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func logoutHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.UserLogoutReq
 		if err := httpx.Parse(r, &req); err != nil {
@@ -17,8 +17,8 @@ func LogoutHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := user.NewLogoutLogic(r.Context(), svcCtx)
-		resp, err := l.Logout(&req)
+		l := logic.NewLogoutLogic(r.Context(), svcCtx)
+		resp, err := l.Logout()
 		if err != nil {
 			httpx.OkJsonCtx(r.Context(), w, types.NewErrCodeMsg(resp.Code, resp.Msg))
 		} else {

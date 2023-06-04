@@ -17,4 +17,10 @@ type Config struct {
 		Database   string
 		Collection string
 	}
+	Minio struct {
+		Bucket    string
+		EndPoint  string
+		AccessKey string
+		SecretKey string
+	}
 }

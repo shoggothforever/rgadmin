@@ -11,3 +11,13 @@ Mongo:
   Uri: mongodb://localhost:27017
   Database: rdadmin
   Collection: employee
+Minio:
+  Bucket: rgadmin
+  EndPoint: 127.0.0.1:9000
+#  AccessKey: azJaxUBYMOfQPzH1LbuD
+  AccessKey: lKvOSkhSwNOpU2371bjV
+#  SecretKey: PvQnDmQXXABE5IUTwS7uWMt5MJbZfjmZxUQT0gqd
+  SecretKey: xdAZhl6cpLRo96P8pBvOW85Offs1V68hfcJ8ybKw
+Redis:
+  Host: 127.0.0.1
+  Port: 6379

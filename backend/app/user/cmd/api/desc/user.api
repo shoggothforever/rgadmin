@@ -8,10 +8,7 @@ info(
 )
 
 import "user/user.api"
-@server(
-	group:user
-	prefix :user
-)
+
 service user {
 	@doc "用户登录"
 	@handler login
@@ -21,14 +18,19 @@ service user {
 
 @server(
 	jwt :JwtAuth
-	group:user
-	prefix :user
 )
 service user {
 	@doc "退出登录"
 	@handler logout
 	post /logout (UserLogoutReq) returns (UserLogoutResp)
-	
+}
+
+@server(
+	jwt :JwtAuth
+	group:user
+	prefix :user
+)
+service user {
 	@doc "用户信息获取"
 	@handler  userInfo
 	get /userinfo (UserInfoReq) returns (UserInfoResp)
@@ -47,7 +49,15 @@ service user {
 	prefix :admin
 )
 service user{
+	@doc "查看本月已经上报工时的职员人数"
+	@handler lookup
+	get /lookup () returns (LookupResp)
+	
 	@doc "传入教职工身份信息excel表"
-	@handler loadInfo
-	post /loadinfo (LoadInfoReq) returns (LoadInfoResp)
+	@handler upload
+	post /upload (UploadInfoReq) returns (UploadInfoResp)
+	
+	@doc "获取所有教职工的工资报表"
+	@handler allwage
+	post /wage (WageExcelReq) returns (WageExcelResp)
 }

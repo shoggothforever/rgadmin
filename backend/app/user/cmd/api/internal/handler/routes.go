@@ -17,10 +17,9 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			{
 				Method:  http.MethodPost,
 				Path:    "/login",
-				Handler: user.LoginHandler(serverCtx),
+				Handler: loginHandler(serverCtx),
 			},
 		},
-		rest.WithPrefix("/user"),
 	)
 
 	server.AddRoutes(
@@ -28,8 +27,14 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			{
 				Method:  http.MethodPost,
 				Path:    "/logout",
-				Handler: user.LogoutHandler(serverCtx),
+				Handler: logoutHandler(serverCtx),
 			},
+		},
+		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
 			{
 				Method:  http.MethodGet,
 				Path:    "/userinfo",
@@ -53,9 +58,19 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				Method:  http.MethodGet,
+				Path:    "/lookup",
+				Handler: admin.LookupHandler(serverCtx),
+			},
+			{
 				Method:  http.MethodPost,
-				Path:    "/loadinfo",
-				Handler: admin.LoadInfoHandler(serverCtx),
+				Path:    "/upload",
+				Handler: admin.UploadHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/wage",
+				Handler: admin.AllwageHandler(serverCtx),
 			},
 		},
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
