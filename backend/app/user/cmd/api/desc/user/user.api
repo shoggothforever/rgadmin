@@ -8,12 +8,12 @@ info(
 )
     type Response {
     Code uint32    `json:"code"`
-    Msg string `json:"msg"`
+    Msg string      `json:"msg"`
     }
 
 type (
     UserLoginReq {
-        StuffCode    string `json:"stuffCode"`
+        StaffCode    string `json:"staffCode"`
         Password    string  `json:"password"`
     }
     UserLoginResp{
@@ -33,11 +33,41 @@ type (
     }
     UserInfoResp{
         Response
-    Id        string   `json:"id"`
-    StuffCode string  `json:"stuffCode"`
-    Name string `json:"name"`
-    Role string `json:"role"`
+        Id        string   `json:"id"`
+        StaffCode string  `json:"staffCode"`
+        Name string `json:"name"`
+        Role string `json:"role"`
+        BaseWage string `json:"baseWage"`
+        ElseFee string  `json:"elseFee"`
     }
+)
+type (
+    CalwageReq{
+        WorkTime float32    `json:"workTime"`
+    }
+    CalwageResp{
+        Response
+        Id        string     `json:"id"`
+        StaffCode string     `json:"staffCode"`
+        Name string          `json:"name"`
+        Year int          `json:"year"`
+        Month  int        `json:"month"`
+        WageBeforeTax float32   `json:"wageBeforeTax"`
+        Tax           float32   `json:"tax"`
+        ActualWage    float32   `json:"actualWage"`
+    }
+)
+type (
+QuerywageReq{
+    Year int `json:"year"`
+    Month int `json:"month"`
+}
+QuerywageResp{
+    Response
+    WageBeforeTax float32   `json:"wageBeforeTax"`
+    Tax           float32   `json:"tax"`
+    ActualWage    float32   `json:"actualWage"`
+}
 )
 type (
     LoadInfoReq{

@@ -32,6 +32,13 @@ service user {
 	@doc "用户信息获取"
 	@handler  userInfo
 	get /userinfo (UserInfoReq) returns (UserInfoResp)
+	
+	@doc "用户上传本月工作信息"
+	@handler calwage
+	post /wage (CalwageReq)returns (CalwageResp)
+	@doc "用户获取工资情况"
+	@handler  getwage
+	post /querywage (QuerywageReq)returns(QuerywageResp)
 }
 
 @server(

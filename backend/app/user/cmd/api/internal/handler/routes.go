@@ -35,6 +35,16 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/userinfo",
 				Handler: user.UserInfoHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/wage",
+				Handler: user.CalwageHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/querywage",
+				Handler: user.GetwageHandler(serverCtx),
+			},
 		},
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
 		rest.WithPrefix("/user"),

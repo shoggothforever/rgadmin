@@ -1,9 +1,9 @@
 package svc
 
 import (
-	model "Table/app/user/cmd/api/cache"
 	"Table/app/user/cmd/api/internal/config"
 	"Table/app/user/cmd/api/internal/types"
+	"Table/app/user/cmd/api/model"
 	db "Table/db/mongo"
 	"context"
 	"go.mongodb.org/mongo-driver/mongo"

@@ -15,7 +15,7 @@ type Response struct {
 }
 
 type UserLoginReq struct {
-	StuffCode string `json:"stuffCode"`
+	StaffCode string `json:"staffCode"`
 	Password  string `json:"password"`
 }
 
@@ -37,10 +37,40 @@ type UserInfoReq struct {
 
 type UserInfoResp struct {
 	Response
-	Id        interface{} `json:"id"`
-	StuffCode string `json:"stuffCode"`
+	Id        string `json:"id"`
+	StaffCode string `json:"staffCode"`
 	Name      string `json:"name"`
 	Role      string `json:"role"`
+	BaseWage  string `json:"baseWage"`
+	ElseFee   string `json:"elseFee"`
+}
+
+type CalwageReq struct {
+	WorkTime float32 `json:"workTime"`
+}
+
+type CalwageResp struct {
+	Response
+	Id            string  `json:"id"`
+	StaffCode     string  `json:"staffCode"`
+	Name          string  `json:"name"`
+	Year          int     `json:"year"`
+	Month         int     `json:"month"`
+	WageBeforeTax float32 `json:"wageBeforeTax"`
+	Tax           float32 `json:"tax"`
+	ActualWage    float32 `json:"actualWage"`
+}
+
+type QuerywageReq struct {
+	Year  int `json:"year"`
+	Month int `json:"month"`
+}
+
+type QuerywageResp struct {
+	Response
+	WageBeforeTax float32 `json:"wageBeforeTax"`
+	Tax           float32 `json:"tax"`
+	ActualWage    float32 `json:"actualWage"`
 }
 
 type LoadInfoReq struct {

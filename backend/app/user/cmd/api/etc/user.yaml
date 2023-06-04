@@ -10,4 +10,4 @@ Cache:
 Mongo:
   Uri: mongodb://localhost:27017
   Database: rdadmin
-  Collection: users
+  Collection: employee

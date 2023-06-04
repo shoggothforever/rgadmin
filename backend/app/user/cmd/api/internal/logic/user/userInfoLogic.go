@@ -1,9 +1,9 @@
 package user
 
 import (
-	model "Table/app/user/cmd/api/cache"
 	"Table/app/user/cmd/api/internal/svc"
 	"Table/app/user/cmd/api/internal/types"
+	"Table/app/user/cmd/api/model"
 	"context"
 	"github.com/zeromicro/go-zero/core/logx"
 	"go.mongodb.org/mongo-driver/bson"
@@ -26,12 +26,18 @@ func NewUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserInfo
 func (l *UserInfoLogic) UserInfo(req *types.UserInfoReq) (resp *types.UserInfoResp, err error) {
 	// todo: add your logic here and delete this line
 	id := l.ctx.Value("payload").(string)
-	fileter := bson.D{{"stuffcode", id}}
+	fileter := bson.D{{"staffcode", id}}
 	var user model.User
 	err = l.svcCtx.Mongo.Collection(l.svcCtx.Config.Mongo.Collection).FindOne(l.ctx, fileter).Decode(&user)
 	if err != nil {
-		return nil, err
+		return &types.UserInfoResp{Response: types.NewResponse(500, err.Error())}, err
 	}
-	resp = &types.UserInfoResp{Response: types.NewResponse(200, "获取用户信息成功"), Id: user.ID, StuffCode: id, Name: user.Name, Role: user.Role}
+	resp = &types.UserInfoResp{Response: types.NewResponse(200, "获取用户信息成功"),
+		Id:        user.ID.Hex(),
+		StaffCode: user.StaffCode,
+		Name:      user.Name,
+		Role:      user.Role,
+		BaseWage:  user.BaseWage,
+		ElseFee:   user.ElseFee}
 	return resp, nil
 }
