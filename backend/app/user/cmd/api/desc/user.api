@@ -10,7 +10,7 @@ info(
 import "user/user.api"
 
 service user {
-	@doc "用户登录"
+	@doc "用户登录，根据返回的role跳转到对应的页面,finance staff为管理员，其他为用户"
 	@handler login
 	post /login (UserLoginReq) returns (UserLoginResp)
 	
@@ -53,7 +53,7 @@ service user{
 	@handler lookup
 	get /lookup () returns (LookupResp)
 	
-	@doc "传入教职工身份信息excel表"
+	@doc "传入教职工身份信息excel表,废弃接口"
 	@handler upload
 	post /upload (UploadInfoReq) returns (UploadInfoResp)
 	

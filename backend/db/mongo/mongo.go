@@ -13,6 +13,11 @@ import (
 	"time"
 )
 
+const (
+	UserCollection = "employee"
+	WageCollection = "wage"
+)
+
 func NewMongoConn(ctx context.Context, uri string) (*mongo.Client, error) {
 	if len(uri) == 0 {
 		logrus.Fatal("uri settings corrupt!")

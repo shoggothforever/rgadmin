@@ -27,7 +27,6 @@ func NewCalwageLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CalwageLo
 }
 
 func (l *CalwageLogic) Calwage(req *types.CalwageReq) (resp *types.CalwageResp, err error) {
-	// todo: add your logic here and delete this line
 	id := l.ctx.Value("payload").(string)
 	//logx.WithContext(l.ctx).Info("获取到了id:", id)
 	fileter := bson.D{{"staffcode", id}}

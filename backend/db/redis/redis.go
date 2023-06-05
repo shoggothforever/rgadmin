@@ -5,6 +5,11 @@ import (
 	"time"
 )
 
+const (
+	CurrentNumKey string = "Count:Now-%d-%d"
+	AllNumKey     string = "Count:All"
+)
+
 func NewRedisClient() *redis.Client {
 	return redis.NewClient(&redis.Options{
 		DB:           6,

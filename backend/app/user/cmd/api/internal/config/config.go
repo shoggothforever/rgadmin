@@ -18,9 +18,10 @@ type Config struct {
 		Collection string
 	}
 	Minio struct {
-		Bucket    string
-		EndPoint  string
-		AccessKey string
-		SecretKey string
+		Bucket     string
+		EndPoint   string
+		AccessKey  string
+		SecretKey  string
+		LinkExpire int64
 	}
 }

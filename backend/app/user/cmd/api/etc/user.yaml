@@ -18,6 +18,7 @@ Minio:
   AccessKey: lKvOSkhSwNOpU2371bjV
 #  SecretKey: PvQnDmQXXABE5IUTwS7uWMt5MJbZfjmZxUQT0gqd
   SecretKey: xdAZhl6cpLRo96P8pBvOW85Offs1V68hfcJ8ybKw
+  LinkExpire: 60
 Redis:
   Host: 127.0.0.1
   Port: 6379
