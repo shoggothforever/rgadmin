@@ -8,7 +8,9 @@ info(
 )
 
 import "user/user.api"
-
+@server(
+	middleware:Coors
+)
 service user {
 	@doc "用户登录，根据返回的role跳转到对应的页面,finance staff为管理员，其他为用户"
 	@handler login
@@ -18,6 +20,7 @@ service user {
 
 @server(
 	jwt :JwtAuth
+	middleware:Coors
 )
 service user {
 	@doc "退出登录"
@@ -27,8 +30,10 @@ service user {
 
 @server(
 	jwt :JwtAuth
+	middleware:Coors
 	group:user
 	prefix :user
+	
 )
 service user {
 	@doc "用户信息获取"
@@ -45,8 +50,10 @@ service user {
 
 @server(
 	jwt :JwtAuth
+	middleware:Coors
 	group:admin
 	prefix :admin
+	
 )
 service user{
 	@doc "查看本月已经上报工时的职员人数"

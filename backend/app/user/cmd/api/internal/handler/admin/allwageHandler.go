@@ -80,11 +80,15 @@ func AllwageHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			//w.Header().Set("Content-Type", "application/octet-stream")
 			reqParams := make(url.Values)
 			reqParams.Set("response-content-disposition", fmt.Sprintf("attachment; filename=%s", filename))
-			url, err := svcCtx.Minio.PresignedGetObject(r.Context(), bucket, filename, time.Duration(svcCtx.Config.Minio.LinkExpire)*time.Second, reqParams)
+			reqParams.Set("Content-Type", "application/csv")
+			url, err := svcCtx.Minio.PresignedGetObject(r.Context(), bucket, filename,
+				time.Duration(svcCtx.Config.Minio.LinkExpire)*time.Second, reqParams)
 			if err != nil {
 				httpx.OkJsonCtx(r.Context(), w, types.NewErrCodeMsg(500, err.Error()))
 				return
 			}
+			//link := url.String()
+			//durl := "http://124.220.190.203:9090" + url.String()[21:]
 			resp := types.WageExcelResp{
 				Response: types.Response{200, "成功生成Excel表格"},
 				FileName: filename,

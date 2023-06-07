@@ -2,6 +2,7 @@ package logic
 
 import (
 	"Table/app/user/cmd/api/model"
+	dbmongo "Table/db/mongo"
 	"context"
 	"errors"
 	"go.mongodb.org/mongo-driver/bson"
@@ -30,7 +31,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 func (l *LoginLogic) Login(req *types.UserLoginReq) (resp *types.UserLoginResp, err error) {
 	fileter := bson.D{{"staffcode", req.StaffCode}}
 	var user model.User
-	err = l.svcCtx.Mongo.Collection("employee").FindOne(l.ctx, fileter).Decode(&user)
+	err = l.svcCtx.Mongo.Collection(dbmongo.UserCollection).FindOne(l.ctx, fileter).Decode(&user)
 	if err != nil {
 		return &types.UserLoginResp{Response: types.NewResponse(401, err.Error())}, err
 	}

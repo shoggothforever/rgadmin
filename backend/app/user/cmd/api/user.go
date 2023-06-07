@@ -26,7 +26,7 @@ func main() {
 	server := rest.MustNewServer(c.RestConf, rest.WithUnauthorizedCallback(func(w http.ResponseWriter, r *http.Request, err error) {
 		httpx.OkJsonCtx(r.Context(), w, types.NewErrCodeMsg(401, err.Error()))
 		return
-	}), rest.WithCors("http://localhost:3000"))
+	}))
 	defer server.Stop()
 
 	ctx := svc.NewServiceContext(c)

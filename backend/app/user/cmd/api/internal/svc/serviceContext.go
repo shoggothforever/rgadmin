@@ -2,6 +2,7 @@ package svc
 
 import (
 	"Table/app/user/cmd/api/internal/config"
+	"Table/app/user/cmd/api/internal/middleware"
 	"Table/app/user/cmd/api/internal/types"
 	"Table/app/user/cmd/api/model"
 	"Table/db/minio"
@@ -10,6 +11,7 @@ import (
 	"context"
 	"github.com/go-redis/redis/v8"
 	"github.com/minio/minio-go/v7"
+	"github.com/zeromicro/go-zero/rest"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -20,6 +22,7 @@ type ServiceContext struct {
 	JwtModel  types.Claims
 	Minio     *minio.Client
 	Redis     *redis.Client
+	Coors     rest.Middleware
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -31,5 +34,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		JwtModel:  types.NewClaim(),
 		Minio:     dbminio.NewMinioClient(c.Minio.EndPoint, c.Minio.AccessKey, c.Minio.SecretKey, c.Minio.Bucket, false),
 		Redis:     dbredis.NewRedisClient(),
+		Coors:     middleware.NewCoorsMiddleware().Handle,
 	}
 }
