@@ -51,7 +51,6 @@ func init() {
 	basewagemap[ROLE10] = 6000
 	basewagemap[ROLE11] = 9000
 	basewagemap[ROLE12] = 15000
-
 }
 func GetBasewage(role string) float64 {
 	return basewagemap[role]

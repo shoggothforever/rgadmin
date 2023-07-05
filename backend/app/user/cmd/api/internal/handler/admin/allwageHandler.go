@@ -25,8 +25,8 @@ func AllwageHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			httpx.OkJsonCtx(r.Context(), w, types.NewErrCodeMsg(400, "数据格式有误，无法正常解析"))
 			return
 		}
-		if req.Month < 1 || req.Month > 12 || req.Year < 2000 || req.Year > 2023 {
-			httpx.OkJsonCtx(r.Context(), w, types.NewErrCodeMsg(400, "输入日期信息无效"))
+		if req.Month < 1 || req.Month > (int)(time.Now().Month()) || req.Year < 2000 || req.Year > time.Now().Year() {
+			httpx.OkJsonCtx(r.Context(), w, types.NewErrCodeMsg(400, "输入信息无效"))
 			return
 		}
 		filter := bson.D{{"year", req.Year}, {"month", req.Month}}
@@ -36,8 +36,10 @@ func AllwageHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 		defer cur.Close(r.Context())
+		var resp types.WageExcelResp
 		var tmpname = "temp.csv"
-		var filename = fmt.Sprintf("wage-%d-%d.csv", req.Year, req.Month)
+		const name = "wageGeneral-%d-%d.csv"
+		var filename = fmt.Sprintf(name, req.Year, req.Month)
 		var bucket = svcCtx.Config.Minio.Bucket
 		file, err := os.Create(tmpname)
 		if err != nil {
@@ -54,10 +56,10 @@ func AllwageHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 				log.Println("无法删除临时 CSV 文件:", err)
 			}
 		}()
-		//file.WriteString("xEFxBBxBF")
 		csvw := csv.NewWriter(file)
-		csvw.Write([]string{"staffCode", "name", "wageBeforeTax", "tax", "actualWage"})
 		var wage model.Wage
+		resp.FileType = "银行表单"
+		csvw.Write([]string{"staffCode", "name", "wageBeforeTax", "tax", "actualWage"})
 		for cur.Next(r.Context()) {
 			cur.Decode(&wage)
 			logx.Info("获取到薪水信息", wage)
@@ -70,14 +72,9 @@ func AllwageHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		_, err = svcCtx.Minio.FPutObject(r.Context(), bucket, filename, tmpname, minio.PutObjectOptions{
 			ContentType: "application/csv",
 		})
-		//l := admin.NewAllwageLogic(r.Context(), svcCtx)
-		//resp, err := l.Allwage(&req)
-
 		if err != nil {
 			httpx.OkJsonCtx(r.Context(), w, types.NewErrCodeMsg(500, err.Error()))
 		} else {
-			//w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=%s", filename))
-			//w.Header().Set("Content-Type", "application/octet-stream")
 			reqParams := make(url.Values)
 			reqParams.Set("response-content-disposition", fmt.Sprintf("attachment; filename=%s", filename))
 			reqParams.Set("Content-Type", "application/csv")
@@ -89,13 +86,9 @@ func AllwageHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			}
 			//link := url.String()
 			//durl := "http://124.220.190.203:9090" + url.String()[21:]
-			resp := types.WageExcelResp{
-				Response: types.Response{200, "成功生成Excel表格"},
-				FileName: filename,
-				FileType: "application/octet-stream",
-				//DownloadUrl: fmt.Sprintf("%s/%s/%s", svcCtx.Minio.EndpointURL().String(), bucket, filename),
-				DownloadUrl: url.String(),
-			}
+			resp.Response = types.Response{200, "成功生成Excel表格"}
+			resp.FileName = filename
+			resp.DownloadUrl = url.String()
 			httpx.OkJsonCtx(r.Context(), w, resp)
 		}
 	}

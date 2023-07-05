@@ -46,6 +46,14 @@ service user {
 	@doc "用户获取工资情况"
 	@handler  getwage
 	post /querywage (QuerywageReq)returns(QuerywageResp)
+	
+	@doc "发起事假申请"
+	@handler postleave
+	post /leave (PostLeaveReq) returns (PostLeaveResp)
+	
+	@doc "查看事假申请结果"
+	@handler usergetleave
+	get /leaveres returns (GetLeaveResp)
 }
 
 @server(
@@ -53,12 +61,11 @@ service user {
 	middleware:Coors
 	group:admin
 	prefix :admin
-	
 )
 service user{
 	@doc "查看本月已经上报工时的职员人数"
 	@handler lookup
-	get /lookup () returns (LookupResp)
+	get /lookup returns (LookupResp)
 	
 	@doc "传入教职工身份信息excel表,废弃接口"
 	@handler upload
@@ -67,4 +74,12 @@ service user{
 	@doc "获取所有教职工的工资报表"
 	@handler allwage
 	post /wage (WageExcelReq) returns (WageExcelResp)
+	
+	@doc "查看事假申请请求"
+	@handler admingetleave
+	get /leaveres returns (GetLeaveResp)
+	
+	@doc "审批事假请求"
+	@handler approve
+	post /approve (ApproveReq) returns (ApproveResp)
 }

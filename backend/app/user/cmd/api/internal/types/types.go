@@ -106,6 +106,41 @@ type UploadInfoResp struct {
 	Name     string `json:"name"`
 }
 
+type LeaveResp struct {
+	Date      string `json:"date"`
+	Subject   string `json:"subject"`
+	Reason    string `json:"reason"`
+	StaffCode string `json:"staffCode"`
+	Name      string `json:"name"`
+	Status    bool   `json:"status"`
+}
+
+type PostLeaveReq struct {
+	Subject string `json:"subject"`
+	Reason  string `json:"reason"`
+}
+
+type PostLeaveResp struct {
+	Response
+}
+
+type GetLeaveResp struct {
+	Response
+	LeaveResps []LeaveResp `json:"leaveResps"`
+}
+
+type ApproveReq struct {
+	StaffCode string `json:"staffCode"`
+	Subject   string `json:"subject"`
+	Date      string `json:"date"`
+	Status    bool   `json:"status"`
+}
+
+type ApproveResp struct {
+	Response
+}
+
+// TODO:记得之后的项目要加json标签
 type CodeError struct {
 	Code uint32
 	Msg  string

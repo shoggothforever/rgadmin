@@ -58,6 +58,16 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/querywage",
 					Handler: user.GetwageHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/leave",
+					Handler: user.PostleaveHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/leaveres",
+					Handler: user.UsergetleaveHandler(serverCtx),
+				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
@@ -82,6 +92,16 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/wage",
 					Handler: admin.AllwageHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/leaveres",
+					Handler: admin.AdmingetleaveHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/approve",
+					Handler: admin.ApproveHandler(serverCtx),
 				},
 			}...,
 		),

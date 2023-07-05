@@ -3,6 +3,7 @@ package user
 import (
 	"Table/app/user/cmd/api/model"
 	"context"
+	"errors"
 	"go.mongodb.org/mongo-driver/bson"
 	"time"
 
@@ -27,6 +28,9 @@ func NewCalwageLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CalwageLo
 }
 
 func (l *CalwageLogic) Calwage(req *types.CalwageReq) (resp *types.CalwageResp, err error) {
+	if req.WorkTime > 300 || req.WorkTime < 0 {
+		return &types.CalwageResp{Response: types.NewResponse(401, "传入非法工时信息")}, errors.New("传入非法工时信息")
+	}
 	id := l.ctx.Value("payload").(string)
 	//logx.WithContext(l.ctx).Info("获取到了id:", id)
 	fileter := bson.D{{"staffcode", id}}
@@ -65,6 +69,5 @@ func (l *CalwageLogic) Calwage(req *types.CalwageReq) (resp *types.CalwageResp, 
 		Tax:           wage.Tax,
 		ActualWage:    wage.ActualWage,
 	}
-	//logx.WithContext(l.ctx).Info("响应体信息:", resp)
 	return resp, nil
 }

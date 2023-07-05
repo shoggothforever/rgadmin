@@ -104,3 +104,38 @@ type (
         Name     string `json:"name"`
     }
 )
+type LeaveResp {
+    Date        string         `json:"date"`
+    Subject     string `json:"subject"`
+    Reason      string  `json:"reason"`
+    StaffCode string `json:"staffCode"`
+    Name string  `json:"name"`
+    Status      bool    `json:"status"`
+}
+type (
+    PostLeaveReq{
+        Subject     string `json:"subject"`
+        Reason      string  `json:"reason"`
+    }
+    PostLeaveResp{
+        Response
+    }
+)
+type (
+
+    GetLeaveResp{
+        Response
+        LeaveResps []LeaveResp `json:"leaveResps"`
+    }
+)
+type (
+    ApproveReq{
+        StaffCode string  `json:"staffCode"`
+        Subject     string `json:"subject"`
+        Date        string   `json:"date"`
+        Status      bool    `json:"status"`
+    }
+    ApproveResp{
+        Response
+    }
+)
