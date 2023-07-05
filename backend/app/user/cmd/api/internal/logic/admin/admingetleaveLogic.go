@@ -3,6 +3,7 @@ package admin
 import (
 	"context"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	"Table/app/user/cmd/api/internal/svc"
 	"Table/app/user/cmd/api/internal/types"
@@ -26,7 +27,7 @@ func NewAdmingetleaveLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Adm
 
 func (l *AdmingetleaveLogic) Admingetleave() (resp *types.GetLeaveResp, err error) {
 	resp = new(types.GetLeaveResp)
-	cur, err := l.svcCtx.Mongo.Collection("leaverequest").Find(l.ctx, bson.D{{"status", false}})
+	cur, err := l.svcCtx.Mongo.Collection("leaverequest").Find(l.ctx, bson.D{{"status", primitive.Null{}}})
 	if err != nil {
 		return &types.GetLeaveResp{Response: types.NewResponse(500, err.Error())}, err
 	}

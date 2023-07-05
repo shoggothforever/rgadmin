@@ -67,9 +67,9 @@ service user{
 	@handler lookup
 	get /lookup returns (LookupResp)
 	
-	@doc "传入教职工身份信息excel表,废弃接口"
-	@handler upload
-	post /upload (UploadInfoReq) returns (UploadInfoResp)
+	@doc "传入教职工工时excel表"
+	@handler uploadWorkTime
+	post /upload  returns (UploadInfoResp)
 	
 	@doc "获取所有教职工的工资报表"
 	@handler allwage

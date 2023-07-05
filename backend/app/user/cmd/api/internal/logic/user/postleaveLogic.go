@@ -37,7 +37,7 @@ func (l *PostleaveLogic) Postleave(req *types.PostLeaveReq) (resp *types.PostLea
 	}
 	var lr = model.Leavereq{
 		ID:        primitive.ObjectID{},
-		Status:    false,
+		Status:    nil,
 		Subject:   req.Subject,
 		Reason:    req.Reason,
 		StaffCode: user.StaffCode,

@@ -27,7 +27,7 @@ func NewApproveLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ApproveLo
 func (l *ApproveLogic) Approve(req *types.ApproveReq) (resp *types.ApproveResp, err error) {
 	// todo: add your logic here and delete this line
 	logx.Info("获取到的请求体内容是", req)
-	filter := bson.D{{"staffcode", req.StaffCode}, {"subject", req.Subject}, {"date", req.Date}, {"status", false}}
+	filter := bson.D{{"staffcode", req.StaffCode}, {"subject", req.Subject}, {"date", req.Date}, {"status", nil}}
 	update := bson.D{{"$set", bson.D{{"status", req.Status}}}}
 	_, err = l.svcCtx.Mongo.Collection("leaverequest").UpdateOne(l.ctx, filter, update)
 	if err != nil {

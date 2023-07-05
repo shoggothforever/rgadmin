@@ -86,7 +86,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPost,
 					Path:    "/upload",
-					Handler: admin.UploadHandler(serverCtx),
+					Handler: admin.UploadWorkTimeHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,

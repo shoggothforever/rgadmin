@@ -33,9 +33,9 @@ func (l *CalwageLogic) Calwage(req *types.CalwageReq) (resp *types.CalwageResp, 
 	}
 	id := l.ctx.Value("payload").(string)
 	//logx.WithContext(l.ctx).Info("获取到了id:", id)
-	fileter := bson.D{{"staffcode", id}}
+	filter := bson.D{{"staffcode", id}}
 	var user model.User
-	err = l.svcCtx.Mongo.Collection("employee").FindOne(l.ctx, fileter).Decode(&user)
+	err = l.svcCtx.Mongo.Collection("employee").FindOne(l.ctx, filter).Decode(&user)
 	if err != nil {
 		return &types.CalwageResp{Response: types.NewResponse(401, err.Error())}, err
 	}

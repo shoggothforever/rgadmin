@@ -101,9 +101,6 @@ type UploadInfoReq struct {
 
 type UploadInfoResp struct {
 	Response
-	Identity string `json:"identity"`
-	Ext      string `json:"ext"`
-	Name     string `json:"name"`
 }
 
 type LeaveResp struct {
@@ -112,7 +109,7 @@ type LeaveResp struct {
 	Reason    string `json:"reason"`
 	StaffCode string `json:"staffCode"`
 	Name      string `json:"name"`
-	Status    bool   `json:"status"`
+	Status    *bool  `json:"status"`
 }
 
 type PostLeaveReq struct {
