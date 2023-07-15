@@ -1,6 +1,11 @@
 Name: user.rpc
-ListenOn: 0.0.0.0:8080
+ListenOn: 0.0.0.0:9080
 Etcd:
   Hosts:
-  - 127.0.0.1:2379
+    - 0.0.0.0:2379
   Key: user.rpc
+
+Mongo:
+  Uri: mongodb://localhost:27017
+  Database: rdadmin
+  Collection: employee

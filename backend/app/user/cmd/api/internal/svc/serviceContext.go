@@ -5,6 +5,7 @@ import (
 	"Table/app/user/cmd/api/internal/middleware"
 	"Table/app/user/cmd/api/internal/types"
 	"Table/app/user/cmd/api/model"
+	"Table/app/user/cmd/rpc/user"
 	"Table/db/minio"
 	"Table/db/mongo"
 	dbredis "Table/db/redis"
@@ -12,6 +13,7 @@ import (
 	"github.com/go-redis/redis/v8"
 	"github.com/minio/minio-go/v7"
 	"github.com/zeromicro/go-zero/rest"
+	"github.com/zeromicro/go-zero/zrpc"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -23,6 +25,7 @@ type ServiceContext struct {
 	Minio     *minio.Client
 	Redis     *redis.Client
 	Coors     rest.Middleware
+	UserRpc   user.User
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -35,5 +38,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Minio:     dbminio.NewMinioClient(c.Minio.EndPoint, c.Minio.AccessKey, c.Minio.SecretKey, c.Minio.Bucket, false),
 		Redis:     dbredis.NewRedisClient(),
 		Coors:     middleware.NewCoorsMiddleware().Handle,
+		UserRpc:   user.NewUser(zrpc.MustNewClient(c.UserRpcConf)),
 	}
 }

@@ -28,7 +28,7 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/Profile/index.vue'),
         name: 'Profile',
-        meta: { title: '个人中心' }
+        meta: { title: '动态数据展示页面' }
       }
     ]
   }

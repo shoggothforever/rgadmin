@@ -2,6 +2,12 @@ Name: user
 Host: 0.0.0.0
 Port: 10001
 Mode: dev
+UserRpcConf:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: user.rpc
+
 JwtAuth:
   AccessSecret: 2333bytedance
   AccessExpire: 21600
@@ -22,3 +28,4 @@ Minio:
 Redis:
   Host: 127.0.0.1
   Port: 6379
+

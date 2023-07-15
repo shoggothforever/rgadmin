@@ -9,31 +9,81 @@
     <br class="line" />
     <br />
     <br />
-    <h4 class="user-number">本月已上报工时人数: {{ userNumber }}</h4>
-    <h4 class="all-number">员工总数: {{ allNumber }}</h4>
+    <div id="EchartPie"></div>
   </div>
 </template>
 
-<script setup>
+<script>
 import { useUserStore } from '../../../stores/user'
+import { defineComponent } from 'vue'
 import { lookUp } from '../../../api/admin';
-import { ref, onMounted } from 'vue';
-
 const userStore = useUserStore()
-
-const name = userStore.name
-const userNumber = ref(0)
-const allNumber = ref(0)
-
-const getUserNumber = () => {
-  lookUp().then((res) => {
-    userNumber.value = res.currentCount;
-    allNumber.value = res.allCount
-  })
-}
-
-onMounted(() => {
-  getUserNumber()
+export default defineComponent({
+  data() {
+    return {
+      name: userStore.name,
+      userNumber: 0,
+      allNumber: 0
+    }
+  },
+  methods: {
+    getUsersNumber() {
+      return new Promise((resolve, reject) => {
+        lookUp().then((res) => {
+          this.userNumber = res.currentCount;
+          this.allNumber = res.allCount
+          resolve(true)
+        })
+          .catch((err) => {
+            reject(err)
+          })
+      })
+    },
+    changePie() {
+      const myEchart = this.$echart.init(document.getElementById('EchartPie'))
+      const option = {
+        tooltip: {
+          trigger: 'item'
+        },
+        series: [
+          {
+            type: 'pie',
+            label: {
+              show: true,
+              position: 'outside'
+            },
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: '#fff',
+              borderWidth: 2
+            },
+            labelLine: {
+              show: true
+            },
+            data: [
+              {
+                value: this.userNumber,
+                name: '已上报工时人数'
+              },
+              {
+                value: this.allNumber - this.userNumber,
+                name: '未上报工时人数'
+              }
+            ]
+          }
+        ]
+      }
+      myEchart.setOption(option);
+      window.addEventListener('resize', function() {
+        myEchart.resize()
+      })
+    }
+  },
+  mounted() {
+    this.getUsersNumber().then(() => {
+      this.changePie()
+    })
+  }
 })
 </script>
 
@@ -76,5 +126,10 @@ onMounted(() => {
       border-top: 1px solid lightgray; /* 添加上边框，设置为浅灰色 */
       margin: 10px 0; /* 可选：为了给线条留出一些间距，可以调整边距值 */
     }
+}
+#EchartPie {
+  padding: 2rem;
+  height: 40rem;
+  width: 60rem;
 }
 </style>

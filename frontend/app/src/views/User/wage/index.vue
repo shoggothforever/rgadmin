@@ -1,41 +1,8 @@
 <template>
     <div class="work-container">
         <el-form :model="form" label-width="120px">
-            <el-form-item label="用户姓名">
-                <el-input v-model="form.name" />
-            </el-form-item>
             <el-form-item label="工时数">
                 <el-input v-model="form.workTime" />
-            </el-form-item>
-            <el-form-item label="职位">
-                <!-- 'admissions staff', 'assistant', 'cleaner', 'computer administrator', 'counsellor', 'driver', 'filing clerk', 'hr', 'librarian', 'principal', 'restaurant staff', 'security bureau', 'teacher', 'vice-principal' -->
-                <el-select v-model="form.region" placeholder="请选择你的职位">
-                    <el-option label="招生负责人" value="admissions staff" />
-                    <el-option label="助理" value="assistant" />
-                    <el-option label="清洁工" value="cleaner" />
-                    <el-option label="电脑管理员" value="computer administrator" />
-                    <el-option label="辅导员" value="counsellor" />
-                    <el-option label="司机" value="driver" />
-                    <el-option label="档案员" value="filing clerk" />
-                    <el-option label="人力资源" value="hr" />
-                    <el-option label="图书管理员" value="librarian" />
-                    <el-option label="校长" value="principal" />
-                    <el-option label="餐厅工作人员" value="restaurant staff" />
-                    <el-option label="保安" value="security bureau" />
-                    <el-option label="教师" value="teacher" />
-                    <el-option label="副校长" value="vice-principal" />
-                </el-select>
-            </el-form-item>
-            <el-form-item label="上报时间">
-                <el-col :span="11">
-                    <el-date-picker v-model="form.date1" type="date" placeholder="选择时间" style="width: 100%" />
-                </el-col>
-            </el-form-item>
-            <el-form-item label="是否是编制">
-                <el-switch v-model="form.delivery" />
-            </el-form-item>
-            <el-form-item label="详细描述">
-                <el-input v-model="form.desc" type="textarea" />
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit">提交</el-button>
@@ -74,12 +41,7 @@ import { ElMessage } from 'element-plus';
 
 // do not use same name with ref
 const form = reactive({
-  name: '',
-  workTime: '',
-  region: '',
-  date1: '',
-  delivery: false,
-  desc: ''
+  workTime: ''
 })
 
 const wageList = reactive([

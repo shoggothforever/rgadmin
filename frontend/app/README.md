@@ -1,21 +1,35 @@
-#### 6.1 
+# rgadmin
 
-提交第一次前端文件
+This template should help get you started developing with Vue 3 in Vite.
 
+## Recommended IDE Setup
 
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-#### 6.2
+## Customize configuration
 
-- 完成了login相关的api，正在写dashboard的侧边栏的动态路由。
+See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-- 完成了user的store
+## Project Setup
 
-- 完成了路由的相关store
+```sh
+npm install
+```
 
-- 完成了axios的配置，完成了请求头和响应体的拦截器
+### Compile and Hot-Reload for Development
 
+```sh
+npm run dev
+```
 
+### Compile and Minify for Production
 
-##### 总结
+```sh
+npm run build
+```
 
-​	今日基本上都在搞路由，明天继续搞路由
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
+```

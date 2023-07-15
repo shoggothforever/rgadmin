@@ -23,9 +23,12 @@ const getWageDetil = (detil) => {
   })
 }
 
-for (let year = 2021; year <= 2023; year++) {
+const currentYear = new Date().getFullYear();
+const currentMonth = new Date().getMonth() + 1;
+
+for (let year = currentYear - 2; year <= currentYear; year++) {
   for (let month = 1; month <= 12; month++) {
-    if (year === 2023 && month > 6) {
+    if (year === currentYear && month > currentMonth) {
       break;
     }
     tableData.push({

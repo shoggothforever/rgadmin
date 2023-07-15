@@ -22,6 +22,11 @@ func NewUserServer(svcCtx *svc.ServiceContext) *UserServer {
 	}
 }
 
+func (s *UserServer) Register(ctx context.Context, in *pb.UserRegisterReq) (*pb.UserRegisterResp, error) {
+	l := logic.NewRegisterLogic(ctx, s.svcCtx)
+	return l.Register(in)
+}
+
 func (s *UserServer) Login(ctx context.Context, in *pb.UserLoginReq) (*pb.UserLoginResp, error) {
 	l := logic.NewLoginLogic(ctx, s.svcCtx)
 	return l.Login(in)
@@ -30,9 +35,4 @@ func (s *UserServer) Login(ctx context.Context, in *pb.UserLoginReq) (*pb.UserLo
 func (s *UserServer) GetInfo(ctx context.Context, in *pb.UserInfoReq) (*pb.UserInfoResp, error) {
 	l := logic.NewGetInfoLogic(ctx, s.svcCtx)
 	return l.GetInfo(in)
-}
-
-func (s *UserServer) LoadInfo(ctx context.Context, in *pb.LoadInfoReq) (*pb.LoadInfoResp, error) {
-	l := logic.NewLoadInfoLogic(ctx, s.svcCtx)
-	return l.LoadInfo(in)
 }

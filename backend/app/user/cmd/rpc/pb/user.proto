@@ -1,7 +1,21 @@
 syntax="proto3";
 option go_package="./pb";
-package pb;
-
+package user;
+message Response{
+  int64 code=1;
+  string msg=2;
+}
+message UserRegisterReq{
+  string Staffcode=1;
+  string Name=2;
+  string Password=3;
+  string Role=4;
+  string Basewage=5;
+  string Elsefee=6;
+}
+message UserRegisterResp{
+  Response Response=1;
+}
 message UserLoginReq{
   string Name=1;
   string Password=2;
@@ -12,22 +26,20 @@ int64 AccessExpire=2;
 int64 RefreshAfter=3;
 }
 message UserInfoReq{
-  string Jwt =1;
-  string Id=2;
+  string Staffcode=1;
 }
 message UserInfoResp{
-  string Name=1;
-  string Role=2;
+  string Id=1;
+  string Staffcode=2;
+  string Name=3;
+  string Password=4;
+  string Role=5;
+  string Basewage=6;
+  string Elsefee=7;
 }
-message LoadInfoReq{
-string Jwt=1;
-bytes UserInfoTable=2;
-}
-message LoadInfoResp{
-bytes OutputTable=1;
-}
+
 service user{
+  rpc Register(UserRegisterReq)returns (UserRegisterResp);
   rpc Login(UserLoginReq)returns(UserLoginResp);
   rpc GetInfo(UserInfoReq)returns(UserInfoResp);
-  rpc loadInfo(LoadInfoReq)returns(LoadInfoResp);
 }
